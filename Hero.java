@@ -1,31 +1,30 @@
 public class Hero extends Character {
-    public Hero(String name, String race, int level) { // memangggil constructor charakter menggunakan super 
+    public Hero(String name, String race, int level) { 
         super(name, race, level);
         this.weapon = membuatSenjata(race);
-        this.armor = null; // Hero tidak memiliki armor secara default
+        this.armor = null; 
     }
 
     @Override
-    public void attack(Character enemy) { // menyerang
+    public void attack(Character enemy) { 
         if (weapon != null) {
-            int damage = weapon.getAttackPoints(); // get attack di clasas weapon
+            int damage = weapon.getAttackPoints(); 
             System.out.println(name + " attacks with " + weapon.getType() + " dealing " + damage + " damage.");
-            // serangan (heronya) dengan (senjata ...) menghasilakna (....) kerusakan
-            enemy.receiveDamage(damage); // menerima damage
+            enemy.receiveDamage(damage); 
            
         }
     }
 
-    private Weapon membuatSenjata(String race) { // membuat senjata berdasarkan race 
+    private Weapon membuatSenjata(String race) { 
         switch (race) {
             case "Knight":
-                return new Weapon("Sword", 30); // Contoh: Pedang dengan 30 attack points
+                return new Weapon("Sword", 30); 
             case "Archer":
-                return new Weapon("Arrow", 20); // Contoh: Panah dengan 20 attack points
+                return new Weapon("Arrow", 20); 
             case "Fighter":
-                return new Weapon("Gloves", 25); // Contoh: Sarung tangan dengan 25 attack points
+                return new Weapon("Gloves", 25); 
             case "Fairy":
-                return new Weapon("Magic Wand", 35); // Contoh: Tongkat sihir dengan 35 attack points
+                return new Weapon("Magic Wand", 35);
             default:
                 return null;
         }
