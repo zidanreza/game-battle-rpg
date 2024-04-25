@@ -1,11 +1,10 @@
 public class Foe extends Character { 
-    private String enemyType; //menyimpan jenis musuh 
+    private String enemyType; 
 
     public Foe(String enemyType, int level) {
-        super(membuatJenisMusuh(enemyType), enemyType, level); // Pemanggilan ini digunakan untuk inisialisasi atribut-atribut dari kelas induk (Character) yang memiliki parameter konstruktor.
-        this.enemyType = enemyType;
+        super(membuatJenisMusuh(enemyType), enemyType, level); 
         this.weapon = membuatSenjata(enemyType);
-        this.armor = null; // Foe tidak memiliki armor secara default
+        this.armor = null; 
     }
 
     @Override
@@ -17,18 +16,16 @@ public class Foe extends Character {
         }
     }
 
-    private static String membuatJenisMusuh(String enemyType) { // berdasarkan senjata
-        // Implementasi pembuatan nama foe berdasarkan jenisnya
+    private static String membuatJenisMusuh(String enemyType) { 
         return "Enemy " + enemyType;
     }
 
-    private Weapon membuatSenjata (String enemyType) { // berdasarkan type musuh 
-        // Implementasi pembuatan senjata foe berdasarkan jenisnya
+    private Weapon membuatSenjata (String enemyType) { 
         switch (enemyType) {
             case "Orc":
-                return new Weapon("Kapak", 30); // Contoh: Kapak dengan 30 attack points
+                return new Weapon("Kapak", 30); 
             case "Elf":
-                return new Weapon("Busur", 25); // Contoh: Busur dengan 25 attack points
+                return new Weapon("Busur", 25);
             case "Dwarf":
                 return new Weapon ("Pisau", 20);
             case "Skeleton":
