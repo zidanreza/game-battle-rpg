@@ -12,6 +12,6 @@ public class Weapon {
     }
 
     public int getAttackPoints() {
-        return attackPoints; // titik serang
+        return attackPoints;
     }
 }
