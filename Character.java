@@ -1,51 +1,43 @@
-public abstract class Character {
+abstract class Character {
     protected String name;
-    protected String race;
     protected int level;
     protected int maxHP;
     protected int currentHP;
     protected int maxMP;
     protected int currentMP;
-    protected Weapon weapon;
-    protected Armor armor;
+    protected String status;
 
-    public Character(String name, String race, int level) {
+    public Character(String name, int level, int maxHP, int maxMP) {
         this.name = name;
-        this.race = race;
         this.level = level;
-        this.maxHP = hitungMaxHP(level);
-        this.currentHP = this.maxHP;
-        this.maxMP = hitungMaxMP(level);
-        this.currentMP = this.maxMP;
+        this.maxHP = maxHP;
+        this.currentHP = maxHP;
+        this.maxMP = maxMP;
+        this.currentMP = maxMP;
+        this.status = "";
     }
 
-    public abstract void attack(Character enemy);
-
-    public void usePotion(int amount) { 
-        this.currentHP = Math.min(this.maxHP, this.currentHP + amount);
-    } 
-
-    public void useEther(int amount) {
-        this.currentMP = Math.min(this.maxMP, this.currentMP + amount);
-    } 
-
-    public void useElixir(int hpAmount, int mpAmount) {
-        usePotion(hpAmount);
-        useEther(mpAmount);
-    } 
-
-    private int hitungMaxHP(int level) {
-        return level * 50;
+    public void attack(Character enemy) {
+        System.out.println(name + " attacks " + enemy.name);
+        enemy.receiveDamage(10); // Example damage
     }
 
-    private int hitungMaxMP(int level) {
-        return level * 50;
-    }
+    public abstract void useSkill(Character enemy);
 
     public void receiveDamage(int damage) {
-        int effectiveDamage = Math.max(0, damage - (armor != null ? armor.getDefensePoints() : 0));
-        this.currentHP = Math.max(0, this.currentHP - effectiveDamage);
-
+        currentHP -= damage;
+        if (currentHP < 0) currentHP = 0;
+        System.out.println(name + " receives " + damage + " damage. Current HP: " + currentHP);
     }
-    
+
+    public void addStatus(String status) {
+        this.status = status;
+        System.out.println(name + " is now " + status);
+    }
+
+    public void removeStatus() {
+        this.status = "";
+        System.out.println(name + " status cleared");
+    }
+
 }
