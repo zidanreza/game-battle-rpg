@@ -1,32 +1,39 @@
-public class Hero extends Character {
-    public Hero(String name, String race, int level) { 
-        super(name, race, level);
-        this.weapon = membuatSenjata(race);
-        this.armor = null; 
+abstract class Hero extends Character {
+    protected String race;
+    protected Weapon weapon;
+
+    public Hero(String name, int level, int maxHP, int maxMP, String race, Weapon weapon) {
+        super(name, level, maxHP, maxMP);
+        this.race = race;
+        this.weapon = weapon;
     }
 
     @Override
-    public void attack(Character enemy) { 
-        if (weapon != null) {
-            int damage = weapon.getAttackPoints(); 
-            System.out.println(name + " attacks with " + weapon.getType() + " dealing " + damage + " damage.");
-            enemy.receiveDamage(damage); 
-           
-        }
+    public void attack(Character enemy) {
+        System.out.println(name + " attacks " + enemy.name + " with " + weapon.getType());
+        enemy.receiveDamage(weapon.getAttackPoints());
     }
 
-    private Weapon membuatSenjata(String race) { 
-        switch (race) {
-            case "Knight":
-                return new Weapon("Sword", 30); 
-            case "Archer":
-                return new Weapon("Arrow", 20); 
-            case "Fighter":
-                return new Weapon("Gloves", 25); 
-            case "Fairy":
-                return new Weapon("Magic Wand", 35);
-            default:
-                return null;
-        }
+    @Override
+    public abstract void useSkill(Character enemy);
+
+    public void usePotion() {
+        currentHP += 100;
+        if (currentHP > maxHP) currentHP = maxHP;
+        System.out.println(name + " uses a Potion. HP: " + currentHP + "/" + maxHP);
+    }
+
+    public void useEther() {
+        currentMP += 100;
+        if (currentMP > maxMP) currentMP = maxMP;
+        System.out.println(name + " uses an Ether. MP: " + currentMP + "/" + maxMP);
+    }
+
+    public void useElixir() {
+        currentHP += 150;
+        if (currentHP > maxHP) currentHP = maxHP;
+        currentMP += 100;
+        if (currentMP > maxMP) currentMP = maxMP;
+        System.out.println(name + " uses an Elixir. HP: " + currentHP + "/" + maxHP + " | MP: " + currentMP + "/" + maxMP);
     }
 }
